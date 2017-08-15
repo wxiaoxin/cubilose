@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cubilose.weixin.mapper.CouponMapper">
+
+	<sql id="BASE_COLUMN">
+		code, end_time, status
+	</sql>
+
+	<insert id="insert" useGeneratedKeys="true"
+			keyColumn="id" keyProperty="id">
+		INSERT INTO coupon(code, end_time, status)
+		VALUES (#{code}, #{endTime}, 1)
+	</insert>
+
+	<insert id="batchInsert" useGeneratedKeys="true"
+			keyColumn="id" keyProperty="id">
+		INSERT INTO coupon(code, end_time, status)
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.code}, #{item.end_time}, 1)
+		</foreach>
+	</insert>
+
+	<update id="delete" keyColumn="id">
+		UPDATE coupon
+		SET status = -1
+		WHEN id = #{id}
+	</update>
+
+	<resultMap id="BASE_MAP" type="Coupon">
+		<result column="id" property="id" />
+		<result column="code" property="code" />
+		<result column="end_time" property="endTime" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<select id="list" resultType="java.util.List" resultMap="BASE_MAP">
+		SELECT id, <include refid="BASE_COLUMN" />
+		FROM coupon
+	</select>
+
+	<select id="getById" resultMap="BASE_MAP" resultType="Coupon">
+		SELECT id, <include refid="BASE_COLUMN" />
+		FROM coupon
+		WHEN id = #{id}
+	</select>
+
+	<select id="getByCode" resultMap="BASE_MAP" resultType="Coupon">
+		SELECT id, <include refid="BASE_COLUMN" />
+		FROM coupon
+		WHEN code like #{code}
+	</select>
+
+	<select id="listByIdOrCode" resultType="java.util.List" resultMap="BASE_MAP">
+		SELECT id, <include refid="BASE_COLUMN" />
+		FROM coupon
+		WHERE CONCAT(id, code) LIKE #{params}
+	</select>
+
+</mapper>

@@ -1,0 +1,41 @@
+<!-- logback日志配置文件 -->
+<configuration scan="false">
+
+    <!--
+        日期 时间 -分隔符 日志级别 进程ID [线程名称] 日志类名称 : 日志信息
+     -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} --%5p ${PID:-} [%15.15t] %-40.40logger{39} : %m%n" />
+
+    <!-- 日志目录,项目同级目录下的logs -->
+    <property name="LOG_HOME" value="logs" />
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- INFO日志输出到文件 -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名称 -->
+            <fileNamePattern>${LOG_HOME}/example-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 30天清理 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 项目日志级别为debug -->
+    <logger name="com.king.example" level="debug"/>
+
+    <!-- 根日志 -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="INFO" />
+    </root>
+
+</configuration>

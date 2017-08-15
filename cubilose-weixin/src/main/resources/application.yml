@@ -1,0 +1,17 @@
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/cubilose?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+# mybatis配置
+mybatis:
+  # 别名
+  type-aliases-package: com.cubilose.weixin.entity
+  # xml文件配置
+  mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 10086
