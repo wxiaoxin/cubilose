@@ -45,6 +45,6 @@ public class User {
     /**
      * 注册时间
      */
-    private Date registerTime;
+    private String registerTime;
 
 }

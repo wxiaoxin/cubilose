@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS user (
 DROP TABLE IF EXISTS coupon;
 CREATE TABLE IF NOT EXISTS coupon (
   id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
-  code VARCHAR(128) COMMENT '优惠券码',
-  end_time TIMESTAMP DEFAULT current_timestamp() COMMENT '优惠券有效截止时间',
+  code VARCHAR(128) UNIQUE COMMENT '优惠券码',
+  end_time TIMESTAMP COMMENT '优惠券有效截止时间',
   status INTEGER COMMENT '优惠券状态：0-无效，-1-删除，1-有效，2-已领取'
 ) CHARSET utf8 COMMENT '优惠券表';
 

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/coupon")
-public class CouponController {
+public class CouponController extends BaseController {
 
     private final static Logger logger
             = LoggerFactory.getLogger(CouponController.class);
@@ -32,42 +31,42 @@ public class CouponController {
     private CouponService couponService;
 
     @RequestMapping("/list")
-    ResponseEntity<String> list() {
+    ResponseEntity list() {
         List<Coupon> coupons = couponService.list();
         coupons.forEach(coupon -> {
             logger.info(coupon.toString());
         });
 
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return success(coupons);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    ResponseEntity<String> save(@RequestBody Coupon coupon) {
+    ResponseEntity save(@RequestBody Coupon coupon) {
         logger.info(coupon.toString());
         couponService.save(coupon);
 
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return success();
     }
 
     @RequestMapping(value = "/bsave", method = RequestMethod.POST)
-    ResponseEntity<String> batchSave(@RequestBody List<Coupon> coupons) {
+    ResponseEntity batchSave(@RequestBody List<Coupon> coupons) {
         coupons.forEach(coupon -> {
             logger.info(coupon.toString());
         });
         couponService.batchSave(coupons);
 
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return success();
     }
 
     @RequestMapping(value = "/query")
-    ResponseEntity<String> query(@Param("keywords") String keywords) {
+    ResponseEntity query(@Param("keywords") String keywords) {
         logger.info(keywords);
         List<Coupon> coupons = couponService.query(keywords);
         coupons.forEach(coupon -> {
             logger.info(coupon.toString());
         });
 
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return success(coupons);
     }
 
 }

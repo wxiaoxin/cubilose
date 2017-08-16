@@ -1,10 +1,9 @@
 package com.cubilose.weixin.entity;
 
+import com.cubilose.weixin.util.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 /**
  * Created by jianxin.wang on 2017/8/15.
@@ -30,7 +29,7 @@ public class Coupon {
     /**
      * 有效期结束时间
      */
-    private Date endTime;
+    private String endTime;
 
     /**
      * 优惠券状态
@@ -42,8 +41,8 @@ public class Coupon {
      *
      * @return  过期返回true，否则返回false
      */
-    public boolean isOverdue() {
-        return endTime.getTime() <= System.currentTimeMillis();
+    public boolean overdue() {
+        return DateUtils.parse(endTime).getTime() <= System.currentTimeMillis();
     }
 
     /**

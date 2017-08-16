@@ -30,7 +30,7 @@
     </appender>
 
     <!-- 项目日志级别为debug -->
-    <logger name="com.king.example" level="debug"/>
+    <logger name="com.cubilose.weixin" level="debug"/>
 
     <!-- 根日志 -->
     <root level="info">

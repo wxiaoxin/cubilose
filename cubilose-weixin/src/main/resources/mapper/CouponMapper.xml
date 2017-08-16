@@ -15,8 +15,9 @@
 	<insert id="batchInsert" useGeneratedKeys="true"
 			keyColumn="id" keyProperty="id">
 		INSERT INTO coupon(code, end_time, status)
+		VALUES
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.code}, #{item.end_time}, 1)
+			(#{item.code}, #{item.endTime}, 1)
 		</foreach>
 	</insert>
 
