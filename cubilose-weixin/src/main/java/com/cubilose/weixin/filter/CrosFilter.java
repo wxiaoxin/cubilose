@@ -15,7 +15,6 @@ import java.io.IOException;
 @Configuration
 public class CrosFilter implements Filter{
 
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -26,6 +25,8 @@ public class CrosFilter implements Filter{
         HttpServletResponse resp = (HttpServletResponse) response;
         // 允许跨域请求
         resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE,HEAD");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
         chain.doFilter(request, resp);
     }
 

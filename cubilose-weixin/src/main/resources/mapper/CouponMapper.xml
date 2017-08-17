@@ -24,7 +24,7 @@
 	<update id="delete" keyColumn="id">
 		UPDATE coupon
 		SET status = -1
-		WHEN id = #{id}
+		WHERE id = #{id}
 	</update>
 
 	<resultMap id="BASE_MAP" type="Coupon">
@@ -37,24 +37,25 @@
 	<select id="list" resultType="java.util.List" resultMap="BASE_MAP">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
+		WHERE status != -1
 	</select>
 
 	<select id="getById" resultMap="BASE_MAP" resultType="Coupon">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
-		WHEN id = #{id}
+		WHEN id = #{id} AND status != -1
 	</select>
 
 	<select id="getByCode" resultMap="BASE_MAP" resultType="Coupon">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
-		WHEN code like #{code}
+		WHEN code like #{code} AND status != -1
 	</select>
 
 	<select id="listByIdOrCode" resultType="java.util.List" resultMap="BASE_MAP">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
-		WHERE CONCAT(id, code) LIKE #{params}
+		WHERE CONCAT(id, code) LIKE #{params} AND status != -1
 	</select>
 
 </mapper>

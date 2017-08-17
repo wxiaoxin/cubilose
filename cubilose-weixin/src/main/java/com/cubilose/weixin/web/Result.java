@@ -7,7 +7,7 @@ public class Result {
 
     private int code;
 
-    private Object value;
+    private Object data;
 
     public Result() {
         this(0);
@@ -17,13 +17,13 @@ public class Result {
         this(code, "");
     }
 
-    public Result(Object value) {
-        this(0, value);
+    public Result(Object data) {
+        this(0, data);
     }
 
-    public Result(int code, Object value) {
+    public Result(int code, Object data) {
         this.code = code;
-        this.value = value;
+        this.data = data;
     }
 
     public int getCode() {
@@ -34,11 +34,11 @@ public class Result {
         this.code = code;
     }
 
-    public Object getValue() {
-        return value;
+    public Object getData() {
+        return data;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setData(Object data) {
+        this.data = data;
     }
 }
