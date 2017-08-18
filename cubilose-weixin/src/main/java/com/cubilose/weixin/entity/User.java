@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jianxin.wang on 2017/8/15.
@@ -28,23 +29,33 @@ public class User {
     private String wId;
 
     /**
+     * 性别
+     */
+    private int sex;
+
+    /**
      * 微信昵称
      */
     private String wName;
 
     /**
-     * 物流单号
+     * 微信头像地址
      */
-    private Long logisticsNumber;
+    private String wImg;
 
     /**
-     * 优惠券ID
+     * 用户关注时间
      */
-    private Long couponId;
+    private String subscribeTime;
 
     /**
-     * 注册时间
+     * 优惠券数量
      */
-    private String registerTime;
+    private int couponSize;
+
+    /**
+     * 优惠券列表
+     */
+    private List<Coupon> coupons;
 
 }

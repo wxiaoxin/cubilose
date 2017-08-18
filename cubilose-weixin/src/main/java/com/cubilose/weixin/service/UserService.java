@@ -10,6 +10,12 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> list();
+    List<User> list(int start, int size);
+
+    User queryById(Long id);
+
+    List<User> queryByName(String wName);
+
+    List<User> queryByLogisticsNumber(String logisticsNumber);
 
 }

@@ -2,19 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cubilose.weixin.mapper.UserMapper">
 
-	<sql id="BASE_COLUMN">
-		w_id, register_time
+    <sql id="BASE_COLUMN">
+		w_id, sex, w_name, w_img, subscribe_time, coupon_size
 	</sql>
 
-	<resultMap id="listMap" type="User">
-		<result column="id" property="id" />
-		<result column="w_id" property="wId" />
-		<result column="register_time" property="registerTime" />
-	</resultMap>
+    <resultMap id="BASE_MAP" type="User">
+        <result column="id" property="id"/>
+        <result column="w_id" property="wId"/>
+        <result column="sex" property="sex"/>
+        <result column="w_name" property="wName"/>
+        <result column="w_img" property="wImg"/>
+        <result column="subscribe_time" property="subscribeTime"/>
+        <result column="coupon_size" property="couponSize"/>
+    </resultMap>
 
-	<select id="list" resultType="java.util.List" resultMap="listMap">
-		SELECT id, <include refid="BASE_COLUMN" />
-		FROM user
-	</select>
+    <select id="list" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN" />
+        FROM user
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getById" resultType="User" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="listByWName" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user
+        WHERE w_name LIKE #{wName}
+    </select>
 
 </mapper>

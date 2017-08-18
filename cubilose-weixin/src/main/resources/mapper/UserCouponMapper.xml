@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cubilose.weixin.mapper.UserCouponMapper">
+
+    <sql id="BASE_COLUMN">
+		user_id, coupon_id, logistics_number, get_time, delivery_time
+	</sql>
+
+    <resultMap id="BASE_MAP" type="User">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="coupon_id" property="couponId"/>
+        <result column="logistics_number" property="logisticsNumber"/>
+        <result column="get_time" property="getTime"/>
+        <result column="delivery_time" property="deliveryTime"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+        INSERT INTO user_coupon(user_id, coupon_id)
+        VALUES (#{userId}, #{coupon_id})
+    </insert>
+
+    <update id="update" keyColumn="id">
+        UPDATE user_coupon
+        SET logistics_number = #{logisticsNumber},
+            delivery_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <select id="list" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="getById" resultType="UserCoupon" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        WHERE id = #{id}
+    </select>
+
+    <select id="listByUserId" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        WHERE user_id LIKE #{userId}
+    </select>
+
+    <select id="listByCouponId" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        WHERE coupon_id LIKE #{couponId}
+    </select>
+
+    <select id="listByLogisticsNumber" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        WHERE logistics_number LIKE #{logisticsNumber}
+    </select>
+
+</mapper>

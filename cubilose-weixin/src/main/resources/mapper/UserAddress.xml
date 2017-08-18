@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cubilose.weixin.mapper.CouponMapper">
+<mapper namespace="com.cubilose.weixin.mapper.UserAddressMapper">
 
 	<sql id="BASE_COLUMN">
-		code, end_time, price, status
+		user_id, address, phone_number
 	</sql>
 
 	<insert id="insert" useGeneratedKeys="true"
 			keyColumn="id" keyProperty="id">
-		INSERT INTO coupon(code, end_time, price, status)
-		VALUES (#{code}, #{endTime}, #{price}, 1)
-	</insert>
-
-	<insert id="batchInsert" useGeneratedKeys="true"
-			keyColumn="id" keyProperty="id">
-		INSERT INTO coupon(code, end_time, status)
-		VALUES
-		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.code}, #{item.endTime}, #{price}, 1)
-		</foreach>
+		INSERT INTO user_address(user_id, address, phone_number)
+		VALUES (#{userId}, #{address}, #{phoneNumber})
 	</insert>
 
 	<update id="delete" keyColumn="id">

@@ -1,16 +1,11 @@
-CREATE DATABASE
-IF NOT EXISTS cubilose
-  DEFAULT CHARSET utf8
-  COLLATE utf8_general_ci;
-
 DROP TABLE IF EXISTS user;
 CREATE TABLE IF NOT EXISTS user (
   id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   w_id VARCHAR(128) COMMENT '微信ID',
+  sex INT COMMENT '性别',
   w_name VARCHAR(128) COMMENT '微信昵称',
-  logistics_number BIGINT COMMENT '物流单号',
-  coupon_id BIGINT COMMENT '优惠券主键ID',
-  register_time TIMESTAMP DEFAULT current_timestamp() COMMENT '注册时间'
+  w_img VARCHAR(1024) COMMENT '微信头像',
+  subscribe_time DATETIME COMMENT '用户关注时间'
 ) CHARSET utf8 COMMENT '用户表';
 
 DROP TABLE IF EXISTS coupon;
@@ -18,24 +13,26 @@ CREATE TABLE IF NOT EXISTS coupon (
   id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   code VARCHAR(128) UNIQUE COMMENT '优惠券码',
   end_time TIMESTAMP COMMENT '优惠券有效截止时间',
-  status INTEGER COMMENT '优惠券状态：0-无效，-1-删除，1-有效，2-已领取'
+  price INT COMMENT '价格，单位元',
+  status INTEGER COMMENT '优惠券状态：-1-禁用，1-有效，2-已领取'
 ) CHARSET utf8 COMMENT '优惠券表';
-
-
-
 
 DROP TABLE IF EXISTS user_coupon;
 CREATE TABLE IF NOT EXISTS user_coupon (
   id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   user_id BIGINT COMMENT '用户主键ID',
-  coupon_id BIGINT COMMENT '优惠券主键ID',
-  get_time TIMESTAMP COMMENT '领取时间'
-) CHARSET utf8 COMMENT '用户领取优惠券关联表';
+  coupon_id BIGINT UNIQUE COMMENT '优惠券主键id',
+  logistics_number VARCHAR(128) COMMENT '物流单号',
+  user_address_id BIGINT COMMENT '用户收货地址信息主键ID',
+  get_time DATETIME DEFAULT current_timestamp() COMMENT '记录创建时间，即优惠券领取时间',
+  delivery_time DATETIME DEFAULT NULL COMMENT '发货时间'
+) CHARSET utf8 COMMENT '用户-优惠券关联表';
 
-DROP TABLE IF EXISTS logistics;
-CREATE TABLE IF NOT EXISTS logistics (
+
+DROP TABLE IF EXISTS user_address;
+CREATE TABLE IF NOT EXISTS user_address (
   id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   user_id BIGINT COMMENT '用户主键ID',
-  logistics_number BIGINT COMMENT '物流单号'
-) CHARSET utf8 COMMENT '物流表'
-
+  address VARCHAR(512) COMMENT '收货地址',
+  phone_number VARCHAR(32) COMMENT '收货手机号码'
+)

@@ -32,6 +32,11 @@ public class Coupon {
     private String endTime;
 
     /**
+     * 价格，单位元
+     */
+    private int price;
+
+    /**
      * 优惠券状态
      */
     private int status;
@@ -49,7 +54,7 @@ public class Coupon {
      * 优惠券状态枚举
      */
     public enum Status {
-        DELETED(-1),    // 删除
+        DELETED(-1),    // 禁用
         VALID(1),       // 有效，即未使用
         USED(2);       // 已使用
 
