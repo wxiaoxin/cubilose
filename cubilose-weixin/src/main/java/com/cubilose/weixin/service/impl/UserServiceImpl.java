@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jianxin.wang on 2017/8/15.
@@ -22,8 +21,9 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> list(int start, int size) {
-        return userMapper.list(start, size);
+    public List<User> list(int pageNum, int pageSize) {
+        int startIndex = (pageNum - 1) * pageSize;
+        return userMapper.list(startIndex, pageSize);
     }
 
     @Override
@@ -32,14 +32,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryByName(String wName) {
-        String params = "%" + wName + "%";
-        return userMapper.listByName(params);
+    public List<User> query(String keyword, int pageNum, int pageSize) {
+        String params = "%" + keyword + "%";
+        int startIndex = (pageNum - 1) * pageSize;
+        return userMapper.listByNameOrId(params, startIndex, pageSize);
     }
 
-    @Override
-    public List<User> queryByLogisticsNumber(String logisticsNumber) {
-        String params = "%" + logisticsNumber + "%";
-        return userMapper.listByLogisticsNumber(params);
-    }
 }

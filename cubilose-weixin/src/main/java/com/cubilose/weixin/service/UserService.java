@@ -14,8 +14,7 @@ public interface UserService {
 
     User queryById(Long id);
 
-    List<User> queryByName(String wName);
+    List<User> query(String keyword, int pageNum, int pageSize);
 
-    List<User> queryByLogisticsNumber(String logisticsNumber);
 
 }

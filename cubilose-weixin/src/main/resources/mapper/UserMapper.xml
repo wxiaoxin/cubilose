@@ -19,7 +19,7 @@
     <select id="list" resultType="java.util.List" resultMap="BASE_MAP">
         SELECT id, <include refid="BASE_COLUMN" />
         FROM user
-        LIMIT #{start}, #{size}
+        LIMIT #{start}, #{pageSize}
     </select>
 
     <select id="getById" resultType="User" resultMap="BASE_MAP">
@@ -32,6 +32,13 @@
         SELECT id, <include refid="BASE_COLUMN"/>
         FROM user
         WHERE w_name LIKE #{wName}
+    </select>
+
+    <select id="listByNameOrId" resultType="java.util.List" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user
+        WHERE CONCAT(w_name, w_id) LIKE #{keyword}
+        LIMIT #{start}, #{pageSize}
     </select>
 
 </mapper>

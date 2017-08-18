@@ -30,8 +30,8 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping("/list")
-    ResponseEntity list(@RequestParam int start, @RequestParam int size) {
-        List<User> users = userService.list(start, size);
+    ResponseEntity list(@RequestParam int pageNum, @RequestParam int pageSize) {
+        List<User> users = userService.list(pageNum, pageSize);
         users.forEach(user -> {
             logger.info(user.toString());
         });
@@ -56,13 +56,15 @@ public class UserController extends BaseController {
     /**
      * 根据用户微信昵称ID查询
      *
-     * @param wName   用户微信昵称
+     * @param keyword   查询关键字，可以是微信昵称，微信ID
      * @return
      */
-    @RequestMapping("/qw/{id}")
-    ResponseEntity queryByWName(@PathVariable String wName) {
-        logger.info("queryByWName：" + wName);
-        List<User> users = userService.queryByName(wName);
+    @RequestMapping("/query")
+    ResponseEntity query(@RequestParam String keyword,
+                         @RequestParam int pageNum,
+                         @RequestParam int pageSize) {
+        logger.info("query：" + keyword);
+        List<User> users = userService.query(keyword, pageNum, pageSize);
         users.forEach(user -> {
             logger.info(user.toString());
         });
@@ -70,22 +72,6 @@ public class UserController extends BaseController {
         return success(users);
     }
 
-    /**
-     * 根据快递单号查询
-     *
-     * @param logisticsNumber   快递单号
-     * @return
-     */
-    @RequestMapping("/qn/{logisticsNumber}")
-    ResponseEntity queryByLogisticsNumber(@PathVariable String logisticsNumber) {
-        logger.info("queryByLogisticsNumber：" + logisticsNumber);
-        List<User> users = userService.queryByLogisticsNumber(logisticsNumber);
-        users.forEach(user -> {
-            logger.info(user.toString());
-        });
-
-        return success(users);
-    }
 
 
 }

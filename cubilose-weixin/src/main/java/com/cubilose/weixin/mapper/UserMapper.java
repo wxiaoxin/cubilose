@@ -2,6 +2,7 @@ package com.cubilose.weixin.mapper;
 
 import com.cubilose.weixin.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,22 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    List<User> list(int start, int size);
+    List<User> list(@Param("start") int start, @Param("pageSize") int pageSize);
 
     User getById(Long id);
 
     List<User> listByName(String wName);
 
-    List<User> listByLogisticsNumber(String logisticsNumber);
+    /**
+     * 查询
+     *
+     * @param keyword       关键字，微信昵称或ID
+     * @param start         起始
+     * @param pageSize      分页大小
+     * @return
+     */
+    List<User> listByNameOrId(@Param("keyword") String keyword,
+                              @Param("start") int start,
+                              @Param("pageSize") int pageSize);
 
 }
