@@ -14,16 +14,22 @@
 
 	<insert id="batchInsert" useGeneratedKeys="true"
 			keyColumn="id" keyProperty="id">
-		INSERT INTO coupon(code, end_time, status)
+		INSERT INTO coupon(code, price, end_time, status)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.code}, #{item.endTime}, #{price}, 1)
+			(#{item.code}, #{item.price}, #{item.endTime}, 1)
 		</foreach>
 	</insert>
 
 	<update id="delete" keyColumn="id">
 		UPDATE coupon
 		SET status = -1
+		WHERE id = #{id}
+	</update>
+
+	<update id="enable" keyColumn="id">
+		UPDATE coupon
+		SET status = 1
 		WHERE id = #{id}
 	</update>
 
@@ -38,6 +44,7 @@
 	<select id="list" resultType="java.util.List" resultMap="BASE_MAP">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
+        LIMIT #{startIndex}, #{pageSize}
 	</select>
 
 	<select id="getById" resultMap="BASE_MAP" resultType="Coupon">
@@ -56,6 +63,13 @@
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
 		WHERE CONCAT(id, code) LIKE #{params}
+	</select>
+
+
+	<select id="exportCodes" resultType="java.util.List" resultMap="BASE_MAP">
+		SELECT id, <include refid="BASE_COLUMN" />
+        FROM coupon
+        WHERE status = 1;
 	</select>
 
 </mapper>

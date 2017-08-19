@@ -2,6 +2,7 @@ package com.cubilose.weixin.mapper;
 
 import com.cubilose.weixin.entity.Coupon;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface CouponMapper {
      *
      * @param coupons 优惠券列表
      */
-    void batchInsert(List<Coupon> coupons);
+    int batchInsert(List<Coupon> coupons);
 
     /**
      * 根据主键ID删除优惠券
@@ -36,11 +37,18 @@ public interface CouponMapper {
     void delete(Long id);
 
     /**
+     * 根据主键ID启用优惠券
+     *
+     * @param id
+     */
+    int enable(Long id);
+
+    /**
      * 获取优惠券列表
      *
      * @return  优惠券列表
      */
-    List<Coupon> list();
+    List<Coupon> list(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
 
     /**
      * 根据主键ID查询优惠券
@@ -67,5 +75,12 @@ public interface CouponMapper {
      * @return          优惠券列表
      */
     List<Coupon> listByIdOrCode(String params);
+
+    /**
+     * 查询所有可用优惠券码
+     *
+     * @return
+     */
+    List<Coupon> exportCodes();
 
 }
