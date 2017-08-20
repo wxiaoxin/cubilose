@@ -70,26 +70,30 @@ public class UserServiceImpl implements UserService {
 
         // 获取最新关注用户的信息
         JSONObject result = WeixinService.pullUserInfoList(openIds);
-        JSONArray userInfoList = result.getJSONArray("user_info_list");
+        if (result != null && result.getInteger("errcode") == 0) {
+            JSONArray userInfoList = result.getJSONArray("user_info_list");
 
-        logger.debug(userInfoList.toJSONString());
+            if (userInfoList != null) {
+                logger.debug(userInfoList.toJSONString());
 
-        List<User> users = new ArrayList<>();
+                List<User> users = new ArrayList<>();
+                Iterator<Object> iterator = userInfoList.iterator();
+                while (iterator.hasNext()) {
+                    JSONObject item = (JSONObject) iterator.next();
+                    User user = User.builder()
+                            .wId(item.getString("openid"))
+                            .wName(item.getString("nickname"))
+                            .sex(item.getInteger("sex"))
+                            .wImg(item.getString("headimgurl"))
+                            .subscribeTime(DateUtils.format(new Date(item.getLong("subscribe_time") * 1000)))
+                            .couponSize(0)
+                            .build();
+                    users.add(user);
+                }
 
-        Iterator<Object> iterator = userInfoList.iterator();
-        while (iterator.hasNext()) {
-            JSONObject item = (JSONObject) iterator.next();
-            User user = User.builder()
-                    .wId(item.getString("openid"))
-                    .wName(item.getString("nickname"))
-                    .sex(item.getInteger("sex"))
-                    .wImg(item.getString("headimgurl"))
-                    .subscribeTime(DateUtils.format(new Date(item.getLong("subscribe_time") * 1000)))
-                    .couponSize(0)
-                    .build();
-            users.add(user);
+                batchSave(users);
+            }
         }
-        batchSave(users);
     }
 
 }

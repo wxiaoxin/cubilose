@@ -135,13 +135,14 @@ public class WeixinService {
         });
 
         param.put("user_list", userList);
+        if (userList.size() > 0) {
+            logger.info("批量获取用户信息参数：" + param.toJSONString());
 
-        logger.info("批量获取用户信息参数：" + param.toJSONString());
-
-        try {
-            return HttpsUtil.post(url, null, param.toJSONString());
-        } catch (IOException e) {
-            logger.error("拉取用户列表失败！！" + e.getMessage());
+            try {
+                return HttpsUtil.post(url, null, param.toJSONString());
+            } catch (IOException e) {
+                logger.error("拉取用户列表失败！！" + e.getMessage());
+            }
         }
         return null;
     }
