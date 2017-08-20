@@ -7,6 +7,8 @@ package com.cubilose.weixin.wx;
  */
 public class WeixinConfiguration {
 
+    public final static String TOKEN = "YJYW2017";
+
     public final static String APPID = "wx08df5dfab045b72c";
 
     public final static String APPSECRET = "bd4fd384c3fd874f8fc63aa235f2a752";
