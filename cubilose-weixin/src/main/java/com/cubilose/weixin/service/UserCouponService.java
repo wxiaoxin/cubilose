@@ -3,11 +3,21 @@ package com.cubilose.weixin.service;
 import com.cubilose.weixin.entity.UserCoupon;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jianxin.wang on 2017/8/18.
  */
 public interface UserCouponService {
+
+    /**
+     * 发货
+     *
+     * @param id
+     * @param logisticsNumber
+     * @return
+     */
+    int deliver(long id, String logisticsNumber);
 
     /**
      * 用户兑换优惠券
@@ -27,7 +37,7 @@ public interface UserCouponService {
      */
     int upLogisticsNumber(long id, String logisticsNumber);
 
-    List<UserCoupon> listAll(int start, int size);
+    List<Map> listAll(String keyword, int start, int size);
 
     List<UserCoupon> queryByUserId(String userId);
 

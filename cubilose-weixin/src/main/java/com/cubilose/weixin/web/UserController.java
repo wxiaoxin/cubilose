@@ -72,6 +72,16 @@ public class UserController extends BaseController {
         return success(users);
     }
 
+    /**
+     * 拉取最新微信用户列表
+     *
+     * @return
+     */
+    @RequestMapping("/pull_user_list")
+    ResponseEntity pullUserLit() {
+       userService.pullUserList();
 
+       return success();
+    }
 
 }

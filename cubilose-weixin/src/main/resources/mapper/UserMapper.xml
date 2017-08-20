@@ -16,6 +16,15 @@
         <result column="coupon_size" property="couponSize"/>
     </resultMap>
 
+    <insert id="batchInsert" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+        INSERT INTO user(w_id, sex, w_name, w_img, subscribe_time, coupon_size)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.wId}, #{item.sex}, #{item.wName},#{item.wImg},  #{item.subscribeTime}, #{item.couponSize})
+        </foreach>
+    </insert>
+
     <select id="list" resultType="java.util.List" resultMap="BASE_MAP">
         SELECT id, <include refid="BASE_COLUMN" />
         FROM user

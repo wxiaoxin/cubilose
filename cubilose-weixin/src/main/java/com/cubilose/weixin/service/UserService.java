@@ -10,11 +10,14 @@ import java.util.List;
 
 public interface UserService {
 
+    int batchSave(List<User> users);
+
     List<User> list(int start, int size);
 
     User queryById(Long id);
 
     List<User> query(String keyword, int pageNum, int pageSize);
 
+    void pullUserList();
 
 }

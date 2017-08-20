@@ -1,0 +1,75 @@
+package com.cubilose.weixin.wx;
+
+/**
+ * Created by wxiao on 2016.11.9.
+ *
+ * 微信各请求地址常量
+ */
+
+public class WeixinUrlConstants {
+
+    /**
+     * 网页授权回调地址
+     * 赋值：APPID REDIRECT_URI STATE
+     */
+    public static String WEBAUTH_REDIRECT_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+
+    /**
+     * 获取Token请求地址
+     * 赋值：APPID APPSECRET
+     */
+    public static String GET_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+
+    /**
+     * 获取用户基本信息请求地址
+     * 赋值：ACCESS_TOKEN OPENID
+     */
+    public static String GET_USERINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+
+    /**
+     * 批量获取用户基本信息请求地址
+     *
+     * ACCESS_TOKEN 口令
+     */
+    public static String LIST_USERINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN";
+
+    /**
+     * 获取关注用户列表
+     *
+     * ACCESS_TOKEN 口令
+     *
+     * NEXT_OPENID  第一个拉取的OPENID，不填默认从头开始拉取
+     */
+    public final static String GET_USERLIST_URL = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID";
+
+    /**
+     * 获取网页授权Token请求地址
+     * 赋值：APPID APPSECRET CODE
+     */
+    public static String GET_WEBAUTH_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=APPSECRET&code=CODE&grant_type=authorization_code";
+
+    /**
+     * 网页授权后拉取用户信息的请求地址
+     * 赋值：ACCESS_TOKEN OPENID
+     */
+    public static String GET_WEBAUTH_USERINFO_URL = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+
+    /**
+     * 获取jsapi_ticket的请求地址
+     * 赋值：ACCESS_TOKEN
+     */
+    public static String GET_JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
+
+    /**
+     * 发送模板消息请求地址
+     * 赋值：ACCESS_TOKEN
+     */
+    public static String POST_SEND_TM_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+
+
+    /**
+     * 微信支付统一下单请求地址
+     */
+    public static String POST_PAY_UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+}

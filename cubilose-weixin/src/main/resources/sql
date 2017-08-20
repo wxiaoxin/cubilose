@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS user (
   sex INT COMMENT '性别',
   w_name VARCHAR(128) COMMENT '微信昵称',
   w_img VARCHAR(1024) COMMENT '微信头像',
-  subscribe_time DATETIME COMMENT '用户关注时间'
+  subscribe_time DATETIME COMMENT '用户关注时间',
+  coupon_size INT COMMENT '优惠券数量'
 ) CHARSET utf8 COMMENT '用户表';
 
 DROP TABLE IF EXISTS coupon;

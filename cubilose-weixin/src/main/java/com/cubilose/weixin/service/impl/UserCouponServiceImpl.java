@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jianxin.wang on 2017/8/18.
@@ -19,6 +20,11 @@ public class UserCouponServiceImpl implements UserCouponService {
     private UserCouponMapper userCouponMapper;
 
     @Override
+    public int deliver(long id, String logisticsNumber) {
+        return userCouponMapper.update(id, logisticsNumber);
+    }
+
+    @Override
     public int save(long userId, Long couponId) {
         return 0;
     }
@@ -29,8 +35,10 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public List<UserCoupon> listAll(int start, int size) {
-        return userCouponMapper.list(start, size);
+    public List<Map> listAll(String keyword, int pageNum, int pageSize) {
+        int startIndex = (pageNum - 1) * pageSize;
+        String param = "%" + keyword + "%";
+        return userCouponMapper.list(param, startIndex, pageSize);
     }
 
     @Override

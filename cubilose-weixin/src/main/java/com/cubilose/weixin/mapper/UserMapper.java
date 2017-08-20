@@ -16,6 +16,14 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
+    /**
+     * 批量插入用户数据
+     *
+     * @param users
+     * @return
+     */
+    int batchInsert(List<User> users);
+
     List<User> list(@Param("start") int start, @Param("pageSize") int pageSize);
 
     User getById(Long id);

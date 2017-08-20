@@ -1,0 +1,54 @@
+[
+    {
+        'code': 'debangwuliu',
+        'name': '德邦物流'
+    },
+    {
+        'code': 'ems',
+        'name': 'ems快递'
+    },
+    {
+        'code': 'guotongkuaidi',
+        'name': '国通快递'
+    },
+    {
+        'code': 'quanfengkuaidi',
+        'name': '全峰快递'
+    },
+    {
+        'code': 'rufengda',
+        'name': '如风达'
+    },
+    {
+        'code': 'shentong',
+        'name': '申通'
+    },
+    {
+        'code': 'shunfeng',
+        'name': '顺丰'
+    },
+    {
+        'code': 'tiantian',
+        'name': '天天快递'
+    },
+    {
+        'code': 'yuantong',
+        'name': '圆通速递'
+    },
+    {
+        'code': 'yunda',
+        'name': '韵达快运'
+    },
+    {
+        'code': 'zhaijisong',
+        'name': '宅急送'
+    },
+    {
+        'code': 'zhongtong',
+        'name': '中通速递'
+    },
+    {
+        'code': 'zhimakaimen',
+        'name': '芝麻开门'
+    }
+]

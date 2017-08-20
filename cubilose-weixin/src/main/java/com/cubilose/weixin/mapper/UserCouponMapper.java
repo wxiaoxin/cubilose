@@ -2,8 +2,10 @@ package com.cubilose.weixin.mapper;
 
 import com.cubilose.weixin.entity.UserCoupon;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jianxin.wang on 2017/8/18.
@@ -27,16 +29,18 @@ public interface UserCouponMapper {
      * @param logisticsNumber   物流号
      * @return
      */
-    int update(int id, String logisticsNumber);
+    int update(@Param("id") long id, @Param("logisticsNumber") String logisticsNumber);
 
     /**
      * 列表
      *
      * @param start     分页起始页
-     * @param size      分页大小
+     * @param pageSize  分页大小
      * @return
      */
-    List<UserCoupon> list(int start, int size);
+    List<Map> list(@Param("keyword") String keyword,
+                   @Param("startIndex") int start,
+                   @Param("pageSize") int pageSize);
 
     /**
      * 根据用户主键ID列表
