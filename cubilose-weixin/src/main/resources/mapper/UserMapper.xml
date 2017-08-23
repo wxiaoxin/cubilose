@@ -37,6 +37,12 @@
         WHERE id = #{id}
     </select>
 
+    <select id="getByWId" resultType="User" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user
+        WHERE w_id = #{wId}
+    </select>
+
     <select id="listByWName" resultType="java.util.List" resultMap="BASE_MAP">
         SELECT id, <include refid="BASE_COLUMN"/>
         FROM user

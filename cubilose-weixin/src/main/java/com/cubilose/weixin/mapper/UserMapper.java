@@ -28,6 +28,8 @@ public interface UserMapper {
 
     User getById(Long id);
 
+    User getByWId(String wId);
+
     List<User> listByName(String wName);
 
     /**

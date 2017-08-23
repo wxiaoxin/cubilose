@@ -1,5 +1,7 @@
 package com.cubilose.weixin.service.impl;
 
+import com.cubilose.weixin.service.UserCouponService;
+import com.cubilose.weixin.service.UserService;
 import com.cubilose.weixin.service.WeixinCoreService;
 import com.cubilose.weixin.util.SignUtils;
 import com.cubilose.weixin.util.XMLUtil;
@@ -10,6 +12,7 @@ import com.cubilose.weixin.wx.message.TextMessage;
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletInputStream;
@@ -29,6 +32,12 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
 
     private final static Logger logger
             = LoggerFactory.getLogger(WeixinCoreServiceImpl.class);
+
+    @Autowired
+    private UserCouponService userCouponService;
+
+    @Autowired
+    private UserService userService;
 
     public boolean checkSignature(HttpServletRequest request) {
         // signature 微信加密签名
@@ -118,6 +127,10 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                     // 点击事件
                     String eventKey = msgMap.get("EventKey");
                     if (eventKey.equalsIgnoreCase("coupon")) {
+                        // 优惠券
+
+                        // userCouponService.
+
                         NewsMessage newsMessage = new NewsMessage();
 
                         newsMessage.setFromUserName(toUserName);

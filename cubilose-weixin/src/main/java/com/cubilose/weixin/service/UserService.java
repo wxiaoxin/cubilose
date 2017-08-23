@@ -16,6 +16,8 @@ public interface UserService {
 
     User queryById(Long id);
 
+    User queryByWId(String wId);
+
     List<User> query(String keyword, int pageNum, int pageSize);
 
     void pullUserList();

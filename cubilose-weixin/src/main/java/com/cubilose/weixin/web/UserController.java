@@ -54,6 +54,21 @@ public class UserController extends BaseController {
     }
 
     /**
+     * 根据微信ID查询用户
+     *
+     * @param wid   微信ID
+     * @return
+     */
+    @RequestMapping("/query/w/{wid}")
+    ResponseEntity queryByWId(@PathVariable String wid) {
+        logger.info("queryByWId: " + wid);
+
+        User user = userService.queryByWId(wid);
+
+        return success(user);
+    }
+
+    /**
      * 根据用户微信昵称ID查询
      *
      * @param keyword   查询关键字，可以是微信昵称，微信ID

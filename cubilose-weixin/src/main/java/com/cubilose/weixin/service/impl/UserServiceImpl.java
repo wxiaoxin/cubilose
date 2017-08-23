@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User queryByWId(String wId) {
+        return userMapper.getByWId(wId);
+    }
+
+    @Override
     public List<User> query(String keyword, int pageNum, int pageSize) {
         String params = "%" + keyword + "%";
         int startIndex = (pageNum - 1) * pageSize;
