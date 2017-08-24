@@ -6,7 +6,7 @@
 		user_id, coupon_id, logistics_number, get_time, delivery_time
 	</sql>
 
-    <resultMap id="BASE_MAP" type="User">
+    <resultMap id="BASE_MAP" type="UserCoupon">
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="coupon_id" property="couponId"/>
@@ -72,10 +72,31 @@
         WHERE id = #{id}
     </select>
 
-    <select id="listByUserId" resultType="java.util.List" resultMap="BASE_MAP">
-        SELECT id, <include refid="BASE_COLUMN"/>
-        FROM user_coupon
-        WHERE user_id LIKE #{userId}
+    <resultMap id="LIST_BY_USER_ID_RESULT_MAP" type="java.util.Map">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="coupon_id" property="couponId" />
+        <result column="logistics_number" property="logisticsNumber" />
+        <result column="get_time" property="getTime" />
+        <result column="get_time" property="getTime" />
+        <result column="delivery_time" property="deliveryTime" />
+        <result column="price" property="price" />
+        <result column="code" property="code" />
+    </resultMap>
+
+    <select id="listByUserId" resultType="java.util.List" resultMap="LIST_BY_USER_ID_RESULT_MAP">
+        SELECT
+        t1.id,
+        user_id,
+        coupon_id,
+        logistics_number,
+        get_time,
+        delivery_time,
+        t2.price,
+        t2.code
+        FROM user_coupon t1 INNER JOIN coupon t2
+        ON t1.coupon_id = t2.id
+        WHERE user_id = #{userId}
     </select>
 
     <select id="listByCouponId" resultType="java.util.List" resultMap="BASE_MAP">

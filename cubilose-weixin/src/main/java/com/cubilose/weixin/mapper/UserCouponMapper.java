@@ -48,7 +48,7 @@ public interface UserCouponMapper {
      * @param userId    用户主键ID参数
      * @return
      */
-    List<UserCoupon> listByUserId(String userId);
+    List<Map> listByUserId(Long userId);
 
     /**
      * 根据物流单号列表

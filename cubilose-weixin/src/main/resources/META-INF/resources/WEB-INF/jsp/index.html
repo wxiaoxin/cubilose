@@ -199,14 +199,13 @@
 <div id="app" class="page">
 
     <div class="page_hd">
-        <img :src="user.wimg" alt="" style="height: 96px; width: 96px;">
-        <h3>{{user.wname}}</h3>
+        <img :src="user.wImg" alt="" style="height: 96px; width: 96px;">
+        <h3>{{user.wName}}</h3>
     </div>
 
     <div class="page_bd" style="text-align: center">
 
-
-        <div class="card-detail clearfix">
+        <div class="card-detail clearfix" v-for="coupon in coupons">
             <!-- 左边大色块 -->
             <div class="card-detail-left">
                 <div class="card-detail-left-top bg2 bd2">
@@ -218,13 +217,13 @@
             <!-- 右边大色块 -->
             <div class="card-detail-right">
                 <div class="card-detail-right-top bg2">
-                    <div>A87AD18</div>
-                    <div>&yen;<span>598</span></div>
+                    <div>{{coupon.code}}</div>
+                    <div>&yen;<span>{{coupon.price}}</span></div>
                     <div class="c1"></div>
                     <div class="c1">已使用</div>
                 </div>
                 <div class="card-detail-right-bottom">
-                    <!--<span>使用期限：2016.6.4-2016.6.5</span>-->
+                    <span>兑换时间：{{formatDateTime(coupon.getTime)}}</span>
                     <!--<span>已使用</span>-->
                 </div>
             </div>
@@ -232,23 +231,23 @@
 
     </div>
     <div class="page_ft">
-        <a href="javascript:;" class="weui-btn weui-btn_primary">兑换优惠券</a>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" @click="convert">兑换优惠券</a>
     </div>
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
 <script>
+
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue!',
-            wId: 'oR2zkwmAk27vNxeu8b3lFZU_K9JU',
-            user: ''
+            user: '',
+            coupons: ''
         },
         methods: {
             getUserByWId () {
-                axios.get('http://localhost:10086/user/query/w/' + this.wId)
+                axios.get('http://localhost:10086/user/query/w/' + user.wId)
                     .then((response) => {
                         let respData = response.data
                         console.log(respData)
@@ -256,6 +255,22 @@
                             this.user = respData.data
                         }
                     })
+            },
+            convert () {
+                alert('...')
+            },
+            // 格式化时间
+            formatDateTime (time) {
+                if (time === undefined || time === '') {
+                    return ''
+                }
+                let date = new Date(time)
+                let y = date.getFullYear() + ' ';
+                let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+                let D = date.getDate() + ' '
+                let h = date.getHours() + ':'
+                let m = date.getMinutes()
+                return y + M + D + h + m
             }
         },
         created () {

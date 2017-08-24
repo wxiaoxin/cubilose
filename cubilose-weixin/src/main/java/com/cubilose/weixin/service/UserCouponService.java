@@ -39,7 +39,7 @@ public interface UserCouponService {
 
     List<Map> listAll(String keyword, int start, int size);
 
-    List<UserCoupon> queryByUserId(String userId);
+    List<Map> queryByUserId(Long userId);
 
     List<UserCoupon> queryByCouponId(String couponId);
 

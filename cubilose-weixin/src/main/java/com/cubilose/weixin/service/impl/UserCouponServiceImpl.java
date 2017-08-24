@@ -42,9 +42,9 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public List<UserCoupon> queryByUserId(String userId) {
-        String params = "%" + userId + "%";
-        return userCouponMapper.listByUserId(params);
+    public List<Map> queryByUserId(Long userId) {
+        // String params = "%" + userId + "%";
+        return userCouponMapper.listByUserId(userId);
     }
 
     @Override
