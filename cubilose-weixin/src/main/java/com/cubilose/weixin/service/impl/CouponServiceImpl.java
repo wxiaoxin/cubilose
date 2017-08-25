@@ -48,7 +48,7 @@ public class CouponServiceImpl implements CouponService {
         }
 
         // 获取已有的优惠券
-        List<Coupon> coupons = this.list(0, 10);
+        List<Coupon> coupons = this.list(1, Integer.MAX_VALUE);
         coupons.forEach(coupon -> {
             String code = coupon.getCode();
             if (codes.contains(code)) {
@@ -93,6 +93,12 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public int enable(Long id) {
         return couponMapper.enable(id);
+    }
+
+    @Override
+    public int updateStatus(Long id, Coupon.Status status) {
+        couponMapper.updateStatus(id, status.getValue());
+        return 0;
     }
 
     @Override

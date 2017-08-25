@@ -44,6 +44,16 @@ public interface CouponMapper {
     int enable(Long id);
 
     /**
+     * 更新指定优惠券状态
+     *
+     * @param couponId      优惠券主键ID
+     * @param status        优惠券状态
+     * @return
+     */
+    int updateStatus(@Param("id") Long couponId,
+                     @Param("status") int status);
+
+    /**
      * 获取优惠券列表
      *
      * @return  优惠券列表

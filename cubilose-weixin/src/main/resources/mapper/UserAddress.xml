@@ -6,7 +6,7 @@
 		user_id, address, phone_number
 	</sql>
 
-	<insert id="insert" useGeneratedKeys="true"
+	<insert id="insert" useGeneratedKeys="true" parameterType="UserAddress"
 			keyColumn="id" keyProperty="id">
 		INSERT INTO user_address(user_id, address, phone_number)
 		VALUES (#{userId}, #{address}, #{phoneNumber})

@@ -50,13 +50,13 @@
 	<select id="getById" resultMap="BASE_MAP" resultType="Coupon">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
-		WHEN id = #{id}
+		WHERE id = #{id}
 	</select>
 
 	<select id="getByCode" resultMap="BASE_MAP" resultType="Coupon">
 		SELECT id, <include refid="BASE_COLUMN" />
 		FROM coupon
-		WHEN code like #{code}
+		WHERE code = #{code}
 	</select>
 
 	<select id="listByIdOrCode" resultType="java.util.List" resultMap="BASE_MAP">
@@ -72,4 +72,9 @@
         WHERE status = 1;
 	</select>
 
+	<update id="updateStatus" keyColumn="id">
+		UPDATE coupon
+		SET status = #{status}
+		WHERE id = #{id}
+	</update>
 </mapper>

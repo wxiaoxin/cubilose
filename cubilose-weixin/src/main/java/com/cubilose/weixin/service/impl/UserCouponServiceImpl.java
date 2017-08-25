@@ -25,13 +25,17 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public int save(long userId, Long couponId) {
-        return 0;
-    }
-
-    @Override
-    public int upLogisticsNumber(long id, String logisticsNumber) {
-        return 0;
+    public long save(long userId, Long couponId) {
+        UserCoupon coupon = UserCoupon.builder()
+                .userId(userId)
+                .couponId(couponId)
+                .build();
+        int row = userCouponMapper.insert(coupon);
+        if (row > 0) {
+            return coupon.getId();
+        } else {
+            return -1;
+        }
     }
 
     @Override
@@ -47,15 +51,15 @@ public class UserCouponServiceImpl implements UserCouponService {
         return userCouponMapper.listByUserId(userId);
     }
 
+    /**
+     * 更新关联的用户地址
+     *
+     * @param userCouponId
+     * @param userAddressId
+     * @return
+     */
     @Override
-    public List<UserCoupon> queryByCouponId(String couponId) {
-        String params = "%" + couponId + "%";
-        return userCouponMapper.listByCouponId(params);
-    }
-
-    @Override
-    public List<UserCoupon> queryByLogisticsNumber(String logisticsNumber) {
-        String params = "%" + logisticsNumber + "%";
-        return userCouponMapper.listByLogisticsNumber(params);
+    public int updateUserAddress(Long userCouponId, Long userAddressId) {
+        return userCouponMapper.updateUserAddressId(userCouponId, userAddressId);
     }
 }

@@ -28,10 +28,25 @@ public interface CouponService {
 
     int enable(Long id);
 
+    /**
+     * 更新指定优惠券状态，可以删除或者指定已使用
+     *
+     * @param id                优惠券主键ID
+     * @param status            优惠券状态枚举
+     * @return
+     */
+    int updateStatus(Long id, Coupon.Status status);
+
     List<Coupon> list(int pageNum, int pageSize);
 
     Coupon queryById(Long id);
 
+    /**
+     * 根据优惠券码查询优惠券信息
+     *
+     * @param code  优惠券码
+     * @return
+     */
     Coupon queryByCode(String code);
 
     List<Coupon> query(String keywords);

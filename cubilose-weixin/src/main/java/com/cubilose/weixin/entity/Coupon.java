@@ -78,6 +78,10 @@ public class Coupon {
                     return DELETED;
             }
         }
+
+        public int getValue() {
+            return value;
+        }
     }
 
 }

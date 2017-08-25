@@ -15,16 +15,22 @@
         <result column="delivery_time" property="deliveryTime"/>
     </resultMap>
 
-    <insert id="insert" useGeneratedKeys="true"
+    <insert id="insert" useGeneratedKeys="true" parameterType="UserCoupon"
             keyColumn="id" keyProperty="id">
         INSERT INTO user_coupon(user_id, coupon_id)
-        VALUES (#{userId}, #{coupon_id})
+        VALUES (#{userId}, #{couponId})
     </insert>
 
     <update id="update" keyColumn="id">
         UPDATE user_coupon
         SET logistics_number = #{logisticsNumber},
             delivery_time = now()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserAddressId" keyColumn="id">
+        UPDATE user_coupon
+        SET user_address_id = #{userAddressId}
         WHERE id = #{id}
     </update>
 
@@ -62,7 +68,6 @@
         FROM user_coupon t1 LEFT JOIN user t2 ON t1.user_id = t2.id
                             LEFT JOIN coupon t3 ON t1.coupon_id = t3.id
                             LEFT JOIN user_address t4 ON t1.user_address_id = t4.id
-        WHERE CONCAT(t1.logistics_number, t2.w_name, t3.code, t4.address) LIKE #{keyword}
         LIMIT #{startIndex}, #{pageSize}
     </select>
 

@@ -1,5 +1,6 @@
 package com.cubilose.weixin.mapper;
 
+import com.cubilose.weixin.entity.UserAddress;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,4 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserAddressMapper {
+
+    long insert(UserAddress userAddress);
+
 }

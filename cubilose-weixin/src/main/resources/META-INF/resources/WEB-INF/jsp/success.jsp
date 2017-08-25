@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>恭喜，兑换成功</title>
     <link href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css" rel="stylesheet">
     <style>
         * {
@@ -36,7 +36,7 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="javascript:history.back();" class="weui-btn weui-btn_primary">去首页</a>
+                <a href="javascript:0;" class="weui-btn weui-btn_primary" @click="toIndex">去首页</a>
             </p>
         </div>
     </div>
@@ -53,22 +53,12 @@
             couponCode: ''
         },
         methods: {
-            getUserByWId () {
-                axios.get('http://localhost:10086/user/query/w/' + user.wId)
-                    .then((response) => {
-                        let respData = response.data
-                        console.log(respData)
-                        if (respData.code === 0) {
-                            this.user = respData.data
-                        }
-                    })
-            },
-            convert () {
-                console.log(this.couponCode)
+            toIndex() {
+                window.location.href
+                    = 'http://localhost:10086/index/' + this.user.wId
             }
         },
-        created () {
-        }
+        created () {}
     })
 </script>
 </body>

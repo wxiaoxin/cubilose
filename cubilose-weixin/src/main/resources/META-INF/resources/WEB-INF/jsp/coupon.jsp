@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>兑换优惠券</title>
     <link href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css" rel="stylesheet">
     <style>
         * {
@@ -47,7 +47,7 @@
 
     <div class="page_bd">
 
-        <div class="weui-cells__title">优惠码</div>
+        <div class="weui-cells__title">优惠码 <span style="color: red;">{{errorMessage}}</span></div>
         <div class="weui-cells">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -66,7 +66,8 @@
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" placeholder="" rows="3"></textarea>
+                        <textarea class="weui-textarea" placeholder=""
+                                  rows="3" v-model="address"></textarea>
                     </div>
                 </div>
             </div>
@@ -75,7 +76,8 @@
             <div class="weui-cells">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入号码">
+                        <input class="weui-input" type="number"
+                               pattern="[0-9]*" placeholder="请输入号码" v-model="phoneNumber">
                     </div>
                 </div>
             </div>
@@ -99,6 +101,22 @@
         </div>
     </div>
 
+    <div id="toast_1" v-show="receiveSucceed">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">领取成功</p>
+        </div>
+    </div>
+
+    <div id="toast_2" v-show="saveSucceed">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">已完成</p>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
@@ -111,17 +129,76 @@
             user: ${user},
             couponCode: '',
             couponConvertSucceeded: false,
-            showLoadingToast: false
+            showLoadingToast: false,
+            saveSucceed: false,
+            receiveSucceed: false,
+            errorMessage: '',
+            userCouponId: '',
+            address: '',
+            phoneNumber: ''
         },
         methods: {
             // 兑换优惠券
             convert () {
                 console.log(this.couponCode)
-                this.couponConvertSucceeded = true
+                axios.get('http://localhost:10086/user/receive', {
+                    params: {
+                        wId: this.user.wId,
+                        couponCode: this.couponCode
+                    }
+                }).then((response) => {
+                    let respData = response.data
+                    if (respData.code < 0) {
+                        let code = respData.code
+                        if (code == -1) {
+                            this.errorMessage = '该优惠券无法使用'
+                        } else if (code == -2) {
+                            this.errorMessage = '该优惠券已使用'
+                        } else if (code == -3) {
+                            this.errorMessage = '保存优惠券失败'
+                        } else if (code == -4) {
+                            this.errorMessage = '该优惠券不存在'
+                        } else {
+                            this.errorMessage = '未知异常'
+                        }
+                    } else {
+                        this.userCouponId = respData.data
+                        this.receiveSucceed = true
+                        setTimeout(() => {
+                            this.receiveSucceed = false
+                        }, 1000);
+                        this.couponConvertSucceeded = true
+                    }
+                })
             },
-            // 保存
+            // 保存收货信息
             saveExpressageInfo () {
                 this.showLoadingToast = true
+                console.log(this.user.id)
+                console.log(this.address)
+                console.log(this.phoneNumber)
+                console.log(this.userCouponId)
+                axios.get('http://localhost:10086/user/saa', {
+                    params: {
+                        userId: this.user.id,
+                        address: this.address,
+                        phoneNumber: this.phoneNumber,
+                        userCouponId: this.userCouponId
+                    }
+                }).then((response) => {
+                    let respData = response.data
+                    if (respData.data == 0) {
+                        setTimeout(() => {
+                            this.showLoadingToast = false
+                            window.location.href = 'http://localhost:10086/success/' + this.user.wId
+                        }, 1000)
+                    }
+                })
+            }
+        },
+        watch: {
+            couponCode: function (value, oldValue) {
+                this.errorMessage = ''
             }
         },
         created () {

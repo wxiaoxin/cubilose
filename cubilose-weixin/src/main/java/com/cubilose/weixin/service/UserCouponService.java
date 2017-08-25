@@ -1,7 +1,5 @@
 package com.cubilose.weixin.service;
 
-import com.cubilose.weixin.entity.UserCoupon;
-
 import java.util.List;
 import java.util.Map;
 
@@ -26,22 +24,11 @@ public interface UserCouponService {
      * @param couponId      优惠券主键ID
      * @return
      */
-    int save(long userId, Long couponId);
-
-    /**
-     * 设置物流单号
-     *
-     * @param id
-     * @param logisticsNumber
-     * @return
-     */
-    int upLogisticsNumber(long id, String logisticsNumber);
+    long save(long userId, Long couponId);
 
     List<Map> listAll(String keyword, int start, int size);
 
     List<Map> queryByUserId(Long userId);
 
-    List<UserCoupon> queryByCouponId(String couponId);
-
-    List<UserCoupon> queryByLogisticsNumber(String logisticsNumber);
+    int updateUserAddress(Long userCouponId, Long userAddressId);
 }
