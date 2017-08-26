@@ -42,9 +42,9 @@ public class UserCouponController extends BaseController {
                         @RequestParam int pageNum,
                         @RequestParam int pageSize) {
         List<Map> result = userCouponService.listAll(keyword, pageNum, pageSize);
-        result.forEach(item -> {
-            logger.info(item.toString());
-        });
+        // result.forEach(item -> {
+        //     logger.info(item.toString());
+        // });
 
         return success(result);
     }

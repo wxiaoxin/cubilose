@@ -50,9 +50,9 @@ public class UserController extends BaseController {
     @RequestMapping("/list")
     ResponseEntity list(@RequestParam int pageNum, @RequestParam int pageSize) {
         List<User> users = userService.list(pageNum, pageSize);
-        users.forEach(user -> {
-            logger.info(user.toString());
-        });
+        // users.forEach(user -> {
+        //     logger.info(user.toString());
+        // });
 
         return success(users);
     }
@@ -98,9 +98,9 @@ public class UserController extends BaseController {
                          @RequestParam int pageSize) {
         logger.info("query：" + keyword);
         List<User> users = userService.query(keyword, pageNum, pageSize);
-        users.forEach(user -> {
-            logger.info(user.toString());
-        });
+        // users.forEach(user -> {
+        //     logger.info(user.toString());
+        // });
 
         return success(users);
     }

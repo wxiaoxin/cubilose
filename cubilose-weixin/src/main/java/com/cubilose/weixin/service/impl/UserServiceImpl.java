@@ -65,13 +65,21 @@ public class UserServiceImpl implements UserService {
 
         // 已保存用户的微信ID
         List<User> userList = this.list(1, Integer.MAX_VALUE);
-        userList.forEach(user -> {
+        // userList.forEach(user -> {
+        //     String wId = user.getWId();
+        //     // 如果所有关注用户的微信ID包括中已关注用户的微信ID，则移除
+        //     if (openIds.contains(wId)) {
+        //         openIds.remove(wId);
+        //     }
+        // });
+
+        for (User user : userList) {
             String wId = user.getWId();
             // 如果所有关注用户的微信ID包括中已关注用户的微信ID，则移除
             if (openIds.contains(wId)) {
                 openIds.remove(wId);
             }
-        });
+        }
 
         // 获取最新关注用户的信息
         JSONObject result = WeixinService.pullUserInfoList(openIds);

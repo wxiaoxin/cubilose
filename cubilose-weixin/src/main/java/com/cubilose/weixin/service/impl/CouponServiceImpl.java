@@ -49,18 +49,37 @@ public class CouponServiceImpl implements CouponService {
 
         // 获取已有的优惠券
         List<Coupon> coupons = this.list(1, Integer.MAX_VALUE);
-        coupons.forEach(coupon -> {
+        // coupons.forEach(coupon -> {
+        //     String code = coupon.getCode();
+        //     if (codes.contains(code)) {
+        //         // 如果生成优惠券码集合中包含了
+        //         // 历史优惠券码，则移除
+        //         codes.remove(code);
+        //     }
+        // });
+
+        for (Coupon coupon : coupons) {
             String code = coupon.getCode();
             if (codes.contains(code)) {
                 // 如果生成优惠券码集合中包含了
                 // 历史优惠券码，则移除
                 codes.remove(code);
             }
-        });
+        }
 
         // 待新插入的优惠券
         List<Coupon> toSaveCoupons = new ArrayList<>();
-        codes.forEach(code -> {
+        // codes.forEach(code -> {
+        //     Coupon coupon = Coupon.builder()
+        //             .code(code)
+        //             .price(price)
+        //             .endTime(endTime)
+        //             .status(1)
+        //             .build();
+        //     toSaveCoupons.add(coupon);
+        // });
+
+        for (String code : codes) {
             Coupon coupon = Coupon.builder()
                     .code(code)
                     .price(price)
@@ -68,7 +87,8 @@ public class CouponServiceImpl implements CouponService {
                     .status(1)
                     .build();
             toSaveCoupons.add(coupon);
-        });
+        }
+
 
         // 批量插入
         return this.batchSave(toSaveCoupons);
@@ -128,9 +148,12 @@ public class CouponServiceImpl implements CouponService {
         StringBuilder builder = new StringBuilder();
         List<Coupon> coupons = couponMapper.exportCodes();
         builder.append("code").append(",").append("price").append("\n");
-        coupons.forEach(coupon -> {
+        // coupons.forEach(coupon -> {
+        //     builder.append(coupon.getCode()).append(",").append(coupon.getPrice()).append("\n");
+        // });
+        for (Coupon coupon : coupons) {
             builder.append(coupon.getCode()).append(",").append(coupon.getPrice()).append("\n");
-        });
+        }
         return builder.toString();
     }
 }

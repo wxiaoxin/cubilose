@@ -41,9 +41,9 @@ public class CouponController extends BaseController {
     ResponseEntity list(@RequestParam int pageNum,
                         @RequestParam int pageSize) {
         List<Coupon> coupons = couponService.list(pageNum, pageSize);
-        coupons.forEach(coupon -> {
-            logger.info(coupon.toString());
-        });
+        // coupons.forEach(coupon -> {
+        //     logger.info(coupon.toString());
+        // });
 
         return success(coupons);
     }
@@ -78,9 +78,9 @@ public class CouponController extends BaseController {
 
     @RequestMapping(value = "/bsave", method = RequestMethod.POST)
     ResponseEntity batchSave(@RequestBody List<Coupon> coupons) {
-        coupons.forEach(coupon -> {
-            logger.info(coupon.toString());
-        });
+        // coupons.forEach(coupon -> {
+        //     logger.info(coupon.toString());
+        // });
         couponService.batchSave(coupons);
 
         return success();
@@ -90,9 +90,9 @@ public class CouponController extends BaseController {
     ResponseEntity query(@Param("keywords") String keywords) {
         logger.info(keywords);
         List<Coupon> coupons = couponService.query(keywords);
-        coupons.forEach(coupon -> {
-            logger.info(coupon.toString());
-        });
+        // coupons.forEach(coupon -> {
+        //     logger.info(coupon.toString());
+        // });
 
         return success(coupons);
     }

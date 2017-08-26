@@ -127,12 +127,19 @@ public class WeixinService {
         JSONObject param = new JSONObject();
         JSONArray userList = new JSONArray();
 
-        openIds.forEach(id -> {
+        // openIds.forEach(id -> {
+        //     Map<String, Object> paramPair = new HashMap<>();
+        //     paramPair.put("openid", id);
+        //     paramPair.put("lang", "zh_CN");
+        //     userList.add(new JSONObject(paramPair));
+        // });
+
+        for (String id : openIds) {
             Map<String, Object> paramPair = new HashMap<>();
             paramPair.put("openid", id);
             paramPair.put("lang", "zh_CN");
             userList.add(new JSONObject(paramPair));
-        });
+        }
 
         param.put("user_list", userList);
         if (userList.size() > 0) {
