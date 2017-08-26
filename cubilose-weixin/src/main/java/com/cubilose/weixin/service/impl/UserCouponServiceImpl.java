@@ -51,6 +51,11 @@ public class UserCouponServiceImpl implements UserCouponService {
         return userCouponMapper.listByUserId(userId);
     }
 
+    @Override
+    public UserCoupon queryByCouponId(Long couponId) {
+        return userCouponMapper.getByCouponId(couponId);
+    }
+
     /**
      * 更新关联的用户地址
      *

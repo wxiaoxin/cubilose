@@ -32,4 +32,9 @@ public class UserAddressServiceImpl implements UserAddressService {
         //     return -1;
         // }
     }
+
+    @Override
+    public UserAddress queryById(Long id) {
+        return userAddressMapper.getById(id);
+    }
 }

@@ -18,35 +18,16 @@
 		WHERE id = #{id}
 	</update>
 
-	<resultMap id="BASE_MAP" type="Coupon">
+	<resultMap id="BASE_MAP" type="UserAddress">
 		<result column="id" property="id" />
-		<result column="code" property="code" />
-		<result column="price" property="price" />
-		<result column="end_time" property="endTime" />
-		<result column="status" property="status" />
-	</resultMap>
+		<result column="user_id" property="userId" />
+		<result column="address" property="address" />
+		<result column="phone_number" property="phoneNumber" />
+ 	</resultMap>
 
-	<select id="list" resultType="java.util.List" resultMap="BASE_MAP">
+	<select id="getById" resultType="UserAddress" resultMap="BASE_MAP">
 		SELECT id, <include refid="BASE_COLUMN" />
-		FROM coupon
+		FROM user_address
+		WHERE id = #{id}
 	</select>
-
-	<select id="getById" resultMap="BASE_MAP" resultType="Coupon">
-		SELECT id, <include refid="BASE_COLUMN" />
-		FROM coupon
-		WHEN id = #{id}
-	</select>
-
-	<select id="getByCode" resultMap="BASE_MAP" resultType="Coupon">
-		SELECT id, <include refid="BASE_COLUMN" />
-		FROM coupon
-		WHEN code like #{code}
-	</select>
-
-	<select id="listByIdOrCode" resultType="java.util.List" resultMap="BASE_MAP">
-		SELECT id, <include refid="BASE_COLUMN" />
-		FROM coupon
-		WHERE CONCAT(id, code) LIKE #{params}
-	</select>
-
 </mapper>

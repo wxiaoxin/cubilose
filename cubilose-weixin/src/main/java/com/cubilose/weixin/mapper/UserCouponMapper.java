@@ -27,8 +27,6 @@ public interface UserCouponMapper {
     /**
      * 插入数据
      *
-     * @param userId   用户ID
-     * @param couponId 优惠券ID
      * @return
      */
     int insert(UserCoupon userCoupon);
@@ -79,4 +77,5 @@ public interface UserCouponMapper {
      */
     List<UserCoupon> listByCouponId(String couponId);
 
+    UserCoupon getByCouponId(Long couponId);
 }

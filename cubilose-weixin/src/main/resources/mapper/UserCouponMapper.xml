@@ -3,7 +3,7 @@
 <mapper namespace="com.cubilose.weixin.mapper.UserCouponMapper">
 
     <sql id="BASE_COLUMN">
-		user_id, coupon_id, logistics_number, get_time, delivery_time
+		user_id, coupon_id, logistics_number, get_time, delivery_time, user_address_id
 	</sql>
 
     <resultMap id="BASE_MAP" type="UserCoupon">
@@ -13,6 +13,7 @@
         <result column="logistics_number" property="logisticsNumber"/>
         <result column="get_time" property="getTime"/>
         <result column="delivery_time" property="deliveryTime"/>
+        <result column="user_address_id" property="userAddressId"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" parameterType="UserCoupon"
@@ -75,6 +76,12 @@
         SELECT id, <include refid="BASE_COLUMN"/>
         FROM user_coupon
         WHERE id = #{id}
+    </select>
+
+    <select id="getByCouponId" resultType="UserCoupon" resultMap="BASE_MAP">
+        SELECT id, <include refid="BASE_COLUMN"/>
+        FROM user_coupon
+        WHERE coupon_id = #{couponId}
     </select>
 
     <resultMap id="LIST_BY_USER_ID_RESULT_MAP" type="java.util.Map">

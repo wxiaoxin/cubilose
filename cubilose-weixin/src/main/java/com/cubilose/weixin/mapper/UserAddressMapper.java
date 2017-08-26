@@ -14,4 +14,6 @@ public interface UserAddressMapper {
 
     long insert(UserAddress userAddress);
 
+    UserAddress getById(Long id);
+
 }

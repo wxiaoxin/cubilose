@@ -207,29 +207,34 @@
 
     <div class="page_bd" style="text-align: center">
 
-        <div class="card-detail clearfix" v-for="coupon in coupons">
-            <!-- 左边大色块 -->
-            <div class="card-detail-left">
-                <div class="card-detail-left-top bg2 bd2">
-                    <!-- 左边半圆 -->
-                    <div class="left-circle"></div>
+        <template v-for="coupon in coupons">
+            <a href="javascript:void(0);" @click="status(coupon.couponId)">
+                <div class="card-detail clearfix">
+                    <!-- 左边大色块 -->
+                    <div class="card-detail-left">
+                        <div class="card-detail-left-top bg2 bd2">
+                            <!-- 左边半圆 -->
+                            <div class="left-circle"></div>
+                        </div>
+                        <div class="card-detail-left-bottom bd2"></div>
+                    </div>
+                    <!-- 右边大色块 -->
+                    <div class="card-detail-right">
+                        <div class="card-detail-right-top bg2">
+                            <div>{{coupon.code}}</div>
+                            <div>&yen;<span>{{coupon.price}}</span></div>
+                            <div class="c1"></div>
+                            <div class="c1"></div>
+                        </div>
+                        <div class="card-detail-right-bottom" style="padding-left: 24px;">
+                            <span style="color: dimgrey;">兑换时间：{{formatDateTime(coupon.getTime)}}</span>
+                            <!--<span>已使用</span>-->
+                        </div>
+                    </div>
                 </div>
-                <div class="card-detail-left-bottom bd2"></div>
-            </div>
-            <!-- 右边大色块 -->
-            <div class="card-detail-right">
-                <div class="card-detail-right-top bg2">
-                    <div>{{coupon.code}}</div>
-                    <div>&yen;<span>{{coupon.price}}</span></div>
-                    <div class="c1"></div>
-                    <div class="c1"></div>
-                </div>
-                <div class="card-detail-right-bottom" style="padding-left: 24px;">
-                    <span style="color: dimgrey;">兑换时间：{{formatDateTime(coupon.getTime)}}</span>
-                    <!--<span>已使用</span>-->
-                </div>
-            </div>
-        </div>
+            </a>
+        </template>
+
     </div>
 
     <div class="page_ft">
@@ -260,6 +265,10 @@
             },
             goto () {
                 window.location.href = 'http://localhost:10086/coupon/' + this.user.wId
+            },
+            // 查询物流信息页
+            status (couponId) {
+                window.location.href = 'http://localhost:10086/status?couponId=' + couponId
             },
             // 格式化时间
             formatDateTime (time) {
