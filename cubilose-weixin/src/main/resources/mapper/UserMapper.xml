@@ -56,4 +56,10 @@
         LIMIT #{start}, #{pageSize}
     </select>
 
+    <update id="increUserCouponSize" parameterType="java.lang.Long">
+        UPDATE user
+        SET coupon_size = coupon_size + 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>

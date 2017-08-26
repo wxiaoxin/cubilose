@@ -22,4 +22,5 @@ public interface UserService {
 
     void pullUserList();
 
+    int increUserCouponSize(Long userId);
 }

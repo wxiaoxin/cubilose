@@ -32,6 +32,8 @@ public interface UserMapper {
 
     List<User> listByName(String wName);
 
+    int increUserCouponSize(Long id);
+
     /**
      * 查询
      *

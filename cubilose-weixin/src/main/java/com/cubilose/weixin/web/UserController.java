@@ -139,6 +139,8 @@ public class UserController extends BaseController {
                 if (saveId > 0) {
                     // 更新优惠券状态
                     couponService.updateStatus(coupon.getId(), Coupon.Status.USED);
+                    // 更新用户优惠券数量
+                    userService.increUserCouponSize(user.getId());
                 } else {
                     return error(-3, "保存优惠券失败");
                 }

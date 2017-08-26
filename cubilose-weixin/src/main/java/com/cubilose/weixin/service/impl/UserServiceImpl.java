@@ -101,4 +101,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public int increUserCouponSize(Long userId) {
+        return userMapper.increUserCouponSize(userId);
+    }
+
 }
