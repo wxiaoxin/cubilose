@@ -141,7 +141,7 @@
             // 兑换优惠券
             convert () {
                 console.log(this.couponCode)
-                axios.get('http://localhost:10086/user/receive', {
+                axios.get('http://www.birdnesket.com/user/receive', {
                     params: {
                         wId: this.user.wId,
                         couponCode: this.couponCode
@@ -178,7 +178,7 @@
                 console.log(this.address)
                 console.log(this.phoneNumber)
                 console.log(this.userCouponId)
-                axios.get('http://localhost:10086/user/saa', {
+                axios.get('http://www.birdnesket.com/user/saa', {
                     params: {
                         userId: this.user.id,
                         address: this.address,
@@ -190,7 +190,7 @@
                     if (respData.data == 0) {
                         setTimeout(() => {
                             this.showLoadingToast = false
-                            window.location.href = 'http://localhost:10086/success/' + this.user.wId
+                            window.location.href = 'http://www.birdnesket.com/success/' + this.user.wId
                         }, 1000)
                     }
                 })

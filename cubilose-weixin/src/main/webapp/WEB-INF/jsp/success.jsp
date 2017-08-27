@@ -55,7 +55,7 @@
         methods: {
             toIndex() {
                 window.location.href
-                    = 'http://localhost:10086/index/' + this.user.wId
+                    = 'http://www.birdnesket.com/index/' + this.user.wId
             }
         },
         created () {}

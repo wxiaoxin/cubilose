@@ -254,7 +254,7 @@
         },
         methods: {
             getUserByWId () {
-                axios.get('http://localhost:10086/user/query/w/' + user.wId)
+                axios.get('http://www.birdnesket.com/user/query/w/' + user.wId)
                     .then((response) => {
                         let respData = response.data
                         console.log(respData)
@@ -264,11 +264,11 @@
                     })
             },
             goto () {
-                window.location.href = 'http://localhost:10086/coupon/' + this.user.wId
+                window.location.href = 'http://www.birdnesket.com/coupon/' + this.user.wId
             },
             // 查询物流信息页
             status (couponId) {
-                window.location.href = 'http://localhost:10086/status?couponId=' + couponId
+                window.location.href = 'http://www.birdnesket.com/status?couponId=' + couponId
             },
             // 格式化时间
             formatDateTime (time) {
