@@ -143,7 +143,7 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                         NewsMessage.Item item = new NewsMessage.Item();
                         item.setTitle("兑换优惠券");
                         item.setDescription("点我去兑换优惠券");
-                        String url = "http://wxiaoxin.ngrok.cc/#/test/" + fromUserName;
+                        String url = "http://www.birdnesket.com/index/" + fromUserName;
                         item.setUrl(url);
                         logger.info("url: " + url);
 
