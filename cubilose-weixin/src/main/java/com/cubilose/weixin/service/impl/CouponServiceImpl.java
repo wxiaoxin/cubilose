@@ -147,12 +147,24 @@ public class CouponServiceImpl implements CouponService {
     public String exportCodes() {
         StringBuilder builder = new StringBuilder();
         List<Coupon> coupons = couponMapper.exportCodes();
-        builder.append("code").append(",").append("price").append("\n");
+        builder.append("code").append(",").
+                append("price").append(",")
+                .append("status").append("\n");
         // coupons.forEach(coupon -> {
         //     builder.append(coupon.getCode()).append(",").append(coupon.getPrice()).append("\n");
         // });
         for (Coupon coupon : coupons) {
-            builder.append(coupon.getCode()).append(",").append(coupon.getPrice()).append("\n");
+            builder.append(coupon.getCode()).append(",")
+                    .append(coupon.getPrice()).append(",");
+            if (coupon.getStatus() == 1) {
+                builder.append("未使用").append("\n");
+            } else if (coupon.getStatus() == 2) {
+                builder.append("已使用").append("\n");
+            } else if (coupon.getStatus() == -1) {
+                builder.append("禁用").append("\n");
+            } else {
+                builder.append("未知").append("\n");
+            }
         }
         return builder.toString();
     }
