@@ -69,7 +69,6 @@
 	<select id="exportCodes" resultType="java.util.List" resultMap="BASE_MAP">
 		SELECT id, <include refid="BASE_COLUMN" />
         FROM coupon
-        WHERE status = 1;
 	</select>
 
 	<update id="updateStatus" keyColumn="id">
