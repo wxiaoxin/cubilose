@@ -39,10 +39,10 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public List<Map> listAll(String keyword, int pageNum, int pageSize) {
+    public List<Map> listAll(int searchType, String keyword, int pageNum, int pageSize) {
         int startIndex = (pageNum - 1) * pageSize;
         String param = "%" + keyword + "%";
-        return userCouponMapper.list(param, startIndex, pageSize);
+        return userCouponMapper.list(searchType, param, startIndex, pageSize);
     }
 
     @Override

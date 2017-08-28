@@ -28,7 +28,7 @@ public interface UserCouponService {
      */
     long save(long userId, Long couponId);
 
-    List<Map> listAll(String keyword, int start, int size);
+    List<Map> listAll(int searchType, String keyword, int start, int size);
 
     List<Map> queryByUserId(Long userId);
 

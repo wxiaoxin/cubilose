@@ -69,6 +69,15 @@
         FROM user_coupon t1 LEFT JOIN user t2 ON t1.user_id = t2.id
                             LEFT JOIN coupon t3 ON t1.coupon_id = t3.id
                             LEFT JOIN user_address t4 ON t1.user_address_id = t4.id
+        <if test="searchType == 1">
+            WHERE t4.phone_number LIKE #{keyword}
+        </if>
+        <if test="searchType == 2">
+            WHERE t2.w_name LIKE #{keyword}
+        </if>
+        <if test="searchType == 3">
+            WHERE t3.code LIKE #{keyword}
+        </if>
         LIMIT #{startIndex}, #{pageSize}
     </select>
 

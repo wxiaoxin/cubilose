@@ -32,16 +32,24 @@ public class UserCouponController extends BaseController {
     /**
      * 列表页
      *
+     * @param type          查询类型：0-所有，1-手机号，2-微信名称，3-优惠券码
      * @param keyword       查询关键字
      * @param pageNum       页码
      * @param pageSize      分页大小
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    ResponseEntity list(@RequestParam String keyword,
+    ResponseEntity list(@RequestParam String type,
+                        @RequestParam String keyword,
                         @RequestParam int pageNum,
                         @RequestParam int pageSize) {
-        List<Map> result = userCouponService.listAll(keyword, pageNum, pageSize);
+        int searchType = 0;
+        try {
+            searchType = Integer.valueOf(type);
+        } catch (Exception e) {
+            logger.error("查询类型转换失败：" + e.getMessage());
+        }
+        List<Map> result = userCouponService.listAll(searchType, keyword, pageNum, pageSize);
         // result.forEach(item -> {
         //     logger.info(item.toString());
         // });

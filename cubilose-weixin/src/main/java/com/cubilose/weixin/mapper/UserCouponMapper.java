@@ -47,9 +47,10 @@ public interface UserCouponMapper {
      * @param pageSize 分页大小
      * @return
      */
-    List<Map> list(@Param("keyword") String keyword,
-                   @Param("startIndex") int start,
-                   @Param("pageSize") int pageSize);
+    List<Map> list(@Param("searchType") int searchType,
+                    @Param("keyword") String keyword,
+                    @Param("startIndex") int start,
+                    @Param("pageSize") int pageSize);
 
     /**
      * 根据用户主键ID列表
