@@ -1,6 +1,7 @@
 package com.cubilose.weixin.mapper;
 
 import com.cubilose.weixin.entity.Coupon;
+import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -59,6 +60,13 @@ public interface CouponMapper {
      * @return  优惠券列表
      */
     List<Coupon> list(@Param("startIndex") int startIndex, @Param("pageSize") int pageSize);
+
+    /**
+     * 根据优惠券状态统计数据
+     *
+     * @return
+     */
+    List<Map<Integer, Integer>> countByStatus();
 
     /**
      * 根据主键ID查询优惠券

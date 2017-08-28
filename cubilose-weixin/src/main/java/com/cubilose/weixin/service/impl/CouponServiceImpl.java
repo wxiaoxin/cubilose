@@ -128,6 +128,11 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    public List<Map<Integer, Integer>> countByStatus() {
+        return couponMapper.countByStatus();
+    }
+
+    @Override
     public Coupon queryById(Long id) {
         return couponMapper.getById(id);
     }

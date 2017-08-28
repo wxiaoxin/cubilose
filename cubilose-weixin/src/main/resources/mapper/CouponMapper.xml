@@ -76,4 +76,18 @@
 		SET status = #{status}
 		WHERE id = #{id}
 	</update>
+
+	<resultMap id="countByStatusResultMap" type="java.util.Map">
+		<result column="status" property="status" javaType="java.lang.Integer"/>
+		<result column="count" property="count" javaType="java.lang.Integer"/>
+	</resultMap>
+
+	<select id="countByStatus" parameterType="java.util.List" resultMap="countByStatusResultMap">
+		SELECT
+			status,
+			count(*) AS count
+		FROM coupon
+		GROUP BY status
+	</select>
+
 </mapper>

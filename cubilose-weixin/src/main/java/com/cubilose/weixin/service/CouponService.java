@@ -3,6 +3,7 @@ package com.cubilose.weixin.service;
 import com.cubilose.weixin.entity.Coupon;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jianxin.wang on 2017/8/16.
@@ -38,6 +39,13 @@ public interface CouponService {
     int updateStatus(Long id, Coupon.Status status);
 
     List<Coupon> list(int pageNum, int pageSize);
+
+    /**
+     * 按优惠券状态统计
+     *
+     * @return
+     */
+    List<Map<Integer, Integer>> countByStatus();
 
     Coupon queryById(Long id);
 

@@ -2,6 +2,7 @@ package com.cubilose.weixin.web;
 
 import com.cubilose.weixin.entity.Coupon;
 import com.cubilose.weixin.service.CouponService;
+import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -46,6 +47,13 @@ public class CouponController extends BaseController {
         // });
 
         return success(coupons);
+    }
+
+    @RequestMapping("/count")
+    ResponseEntity count() {
+        List<Map<Integer, Integer>> result = couponService.countByStatus();
+
+        return success(result);
     }
 
     /**
