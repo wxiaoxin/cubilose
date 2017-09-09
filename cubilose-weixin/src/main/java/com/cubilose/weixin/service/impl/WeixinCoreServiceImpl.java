@@ -132,9 +132,9 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                             List<Map> userCoupons = userCouponService.queryByUserId(user.getId());
                             int size = userCoupons.size();
                             if (size > 0) {
-                                description.append("您已有").append(size).append("张优惠券\n");
+                                description.append("您已有").append(size).append("张优惠券\n\n");
                                 for (Map map : userCoupons) {
-                                    description.append(map.get("code")).append("\n");
+                                    description.append(map.get("code")).append("\n\n");
                                 }
                             } else {
                                 description.append("您还没有优惠券\n");
@@ -176,7 +176,7 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                                                     .append(url)
                                                     .append("\">物流单号：")
                                                     .append(number)
-                                                    .append("</a>\n");
+                                                    .append("</a>\n\n");
                                         }
                                     }
                                 }
