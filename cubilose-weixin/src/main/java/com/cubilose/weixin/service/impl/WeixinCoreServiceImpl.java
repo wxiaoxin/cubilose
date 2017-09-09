@@ -165,7 +165,7 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                             int size = userCoupons.size();
                             if (size > 0) {
                                 for (Map map : userCoupons) {
-                                    String logistics_number = (String) map.get("logistics_number");
+                                    String logistics_number = (String) map.get("logisticsNumber");
                                     if (logistics_number != null && !logistics_number.isEmpty()) {
                                         String[] split = logistics_number.split("-");
                                         if (split.length >= 2) {
