@@ -177,11 +177,9 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                                                     .append("\">物流单号：")
                                                     .append(number)
                                                     .append("</a>\n\n");
+                                            logger.info(description.toString());
                                         }
                                     }
-                                }
-                                if (description.length() == 0) {
-                                    description.append("暂无物流信息");
                                 }
                             } else {
                                 description.append("暂无物流信息");
