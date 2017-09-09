@@ -1,5 +1,6 @@
 package com.cubilose.weixin.service.impl;
 
+import com.cubilose.weixin.entity.User;
 import com.cubilose.weixin.service.UserCouponService;
 import com.cubilose.weixin.service.UserService;
 import com.cubilose.weixin.service.WeixinCoreService;
@@ -7,6 +8,7 @@ import com.cubilose.weixin.util.SignUtils;
 import com.cubilose.weixin.util.XMLUtil;
 import com.cubilose.weixin.wx.WeixinConfiguration;
 import com.cubilose.weixin.wx.WeixinMessageConstant;
+import com.cubilose.weixin.wx.WeixinService;
 import com.cubilose.weixin.wx.message.NewsMessage;
 import com.cubilose.weixin.wx.message.TextMessage;
 import org.dom4j.DocumentException;
@@ -94,26 +96,6 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
             if(msgType.equals(WeixinMessageConstant.TYPE_TEXT)) {
                 String content = msgMap.get("Content");
                 message.setContent(content);
-
-                // if(content.equals("模板")) {
-                //     Map<String,String> map = new HashMap<>();
-                //     map.put("first", "话费充值提醒");
-                //     map.put("keyword1", "15221505770");
-                //     map.put("keyword2", "100");
-                //     map.put("remark", "感谢使用在线充值！");
-                //
-                //     templateMsgService.sendPhoneChargeTMsg(fromUserName, "http://www.baidu.com", map);
-                //     message.setContent("已发送模板消息");
-                // } else if(content.equals("授权")) {
-                //     String url = WeixinUrlConstants.WEBAUTH_REDIRECT_URL
-                //             .replace("APPID", WeixinConfigConstant.APPID)
-                //             .replace("REDIRECT_URI", WeixinConfigConstant.AUTH_REDIRECT_URI)
-                //             .replace("STATE", "123");
-                //     String respContent = "<a href=\"" + url + "\">授权</a>";
-                //     message.setContent(respContent);
-                // } else {
-                //     message.setContent(content);
-                // }
             }
 
             if(msgType.equals(WeixinMessageConstant.TYPE_EVENT)) {
@@ -121,6 +103,9 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                 if(event.equals(WeixinMessageConstant.EVENT_TYPE_SUBSCRIBE)) {
                     // 订阅事件
                     message.setContent("感谢关注！");
+
+                    // 拉取一次关注者列表信息，存入数据库中
+                    userService.pullUserList();
                 }
 
                 if (event.equalsIgnoreCase(WeixinMessageConstant.EVENT_TYPE_CLICK)) {
@@ -140,9 +125,26 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
 
                         List<NewsMessage.Item> articles = new ArrayList<>();
 
+                        StringBuilder description = new StringBuilder();
+
+                        User user = userService.queryByWId(fromUserName);
+                        if (user != null) {
+                            List<Map> userCoupons = userCouponService.queryByUserId(user.getId());
+                            int size = userCoupons.size();
+                            if (size > 0) {
+                                description.append("您已有").append(size).append("张优惠券\n");
+                                for (Map map : userCoupons) {
+                                    description.append(map.get("code")).append("\n");
+                                }
+                            } else {
+                                description.append("您还没有优惠券\n");
+                            }
+                        }
+                        description.append("点我去兑换优惠券");
+
                         NewsMessage.Item item = new NewsMessage.Item();
                         item.setTitle("兑换优惠券");
-                        item.setDescription("点我去兑换优惠券");
+                        item.setDescription(description.toString());
                         String url = "http://www.birdnesket.com/index/" + fromUserName;
                         item.setUrl(url);
                         logger.info("url: " + url);
@@ -155,7 +157,37 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                         return XMLUtil.newsMsgToXml(newsMessage);
                     }
                     if (eventKey.equalsIgnoreCase("expressage")) {
-                        message.setContent("快递查询");
+                        StringBuilder description = new StringBuilder();
+
+                        User user = userService.queryByWId(fromUserName);
+                        if (user != null) {
+                            List<Map> userCoupons = userCouponService.queryByUserId(user.getId());
+                            int size = userCoupons.size();
+                            if (size > 0) {
+                                for (Map map : userCoupons) {
+                                    String logistics_number = (String) map.get("logistics_number");
+                                    if (logistics_number != null && !logistics_number.isEmpty()) {
+                                        String[] split = logistics_number.split("-");
+                                        if (split.length >= 2) {
+                                            String com = split[0];
+                                            String number = split[1];
+                                            String url = "https://m.kuaidi100.com/result.jsp?com=" + com + "&nu=" + number;
+                                            description.append("<a href=\"")
+                                                    .append(url)
+                                                    .append("\">物流单号：")
+                                                    .append(number)
+                                                    .append("</a>\n");
+                                        }
+                                    }
+                                }
+                                if (description.length() == 0) {
+                                    description.append("暂无物流信息");
+                                }
+                            } else {
+                                description.append("暂无物流信息");
+                            }
+                        }
+                        message.setContent(description.toString());
                     }
                 }
             }
