@@ -55,7 +55,7 @@
         methods: {
             toIndex() {
                 window.location.href
-                    = 'http://www.birdnesket.com/index/' + this.user.wId
+                    = 'http://birdnesket.wenqie.info/index/' + this.user.wId
             }
         },
         created () {}

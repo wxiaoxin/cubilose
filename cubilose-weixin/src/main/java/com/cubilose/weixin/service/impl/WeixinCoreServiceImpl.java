@@ -145,7 +145,7 @@ public class WeixinCoreServiceImpl implements WeixinCoreService {
                         NewsMessage.Item item = new NewsMessage.Item();
                         item.setTitle("兑换优惠券");
                         item.setDescription(description.toString());
-                        String url = "http://www.birdnesket.com/index/" + fromUserName;
+                        String url = "http://birdnesket.wenqie.info/index/" + fromUserName;
                         item.setUrl(url);
                         logger.info("url: " + url);
 
